@@ -101,9 +101,12 @@ class ProductController extends Controller
      *
      * @param  \App\Model\Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response(null, 204);
+
     }
 }
