@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Model\Product;
 use App\Model\Review;
@@ -12,6 +13,7 @@ class ReviewController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Product $product
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Product $product)
@@ -32,12 +34,18 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param Product $product
+     * @return void
      */
-    public function store(Request $request)
+    public function store(ReviewRequest $request, Product $product)
     {
-        //
+        $review = new Review($request->all());
+        $product->reviews()->save($review);
+        return response([
+            'data' => new ReviewResource($review)
+        ],201);
+
     }
 
     /**
