@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed review
  * @property mixed star
  * @property mixed customer
+ * @property mixed id
  */
 class ReviewResource extends JsonResource
 {
@@ -20,6 +21,7 @@ class ReviewResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'customer' => $this->customer,
             'body' => $this->review,
             'star' => $this->star
